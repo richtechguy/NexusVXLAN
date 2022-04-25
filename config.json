@@ -1,0 +1,87 @@
+{
+    "switches": [
+        {
+        "hostname":"LEAF-1",
+        "url":"192.168.0.101",
+        "user":"admin",
+        "password":"passW0rd!",
+        "leaf":true,
+        "loopback0":"10.10.10.1",
+        "loopback1":"10.100.0.1"
+        },
+        {
+        "hostname":"LEAF-2",
+        "url":"192.168.0.102",
+        "user":"admin",
+        "password":"passW0rd!",
+        "leaf":true,
+        "loopback0":"10.10.10.2",
+        "loopback1":"10.100.0.2"
+        },
+        {
+        "hostname":"RTG-SPINE-1",
+        "url":"192.168.0.111",
+        "user":"admin",
+        "password":"passW0rd!",
+        "leaf":false,
+        "loopback0":"10.10.10.10",
+        "loopback1":"10.200.100.1"
+        }
+    ],
+    "ospf": {
+        "name":"UNDERLAY"
+    }
+    ,
+    "bgp": {
+        "aSystem":"65000"
+    },
+    "pim": {
+        "group":"239.0.0.0/24"
+    },
+    "vlans": [
+        {
+            "id":"99",
+            "vnid":"40099",
+            "mcast":"0.0.0.0",
+            "ip":"0.0.0.0/0"
+        },
+        {
+            "id":"100",
+            "vnid":"40100",
+            "mcast":"239.0.0.10",
+            "ip":"172.20.10.1/24"
+        },
+        {
+            "id":"200",
+            "vnid":"40200",
+            "mcast":"239.0.0.20",
+            "ip":"172.20.20.1/24"
+        },
+        {
+            "id":"300",
+            "vnid":"40300",
+            "mcast":"239.0.0.30",
+            "ip":"172.20.30.1/24"
+        },
+        {
+            "id":"400",
+            "vnid":"40400",
+            "mcast":"239.0.0.40",
+            "ip":"172.20.40.1/24"
+        },
+        {
+            "id":"500",
+            "vnid":"40500",
+            "mcast":"239.0.0.50",
+            "ip":"172.20.50.1/24"
+        }
+    ],
+    "vxlan": {
+        "anycastMac":"00:11:22:33:AA:BB"
+    },
+    "vrf": {
+        "context":"vxlan",
+        "vni":"40099"
+    },
+    "routeMap":"permitAll"
+}
