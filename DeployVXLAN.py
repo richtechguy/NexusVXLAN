@@ -80,8 +80,7 @@ featureList = (
     "nv overlay",
     "ospf",
     "pim",
-    "vn-segment-vlan-based",
-    "vpc"
+    "vn-segment-vlan-based"
 )
 
 # Format the switch["url"] variable for API interaction
@@ -200,13 +199,5 @@ for switch in nxData:
         redisBGP = "router bgp " + bgpAs + " ;vrf " + confVars["vrf"]["context"] + " ;address-family ipv4 unicast ;redistribute direct route-map " + confVars["routeMap"]
         setRedisBGP = NxosCall.NxosAPI(switch["url"],NxosCall.NxosConfig(redisBGP),switch["user"],switch["password"])["ins_api"]["outputs"]["output"]
         NxosCall.NxosResult(setRedisBGP)
-
-        #Verify NVE1 associated loopback is up
-        shutLo1 = "interface lo1 ;shutdown"
-        noShutLo1 = "interface lo1 ;no shutdown"
-        setLo1status = NxosCall.NxosAPI(switch["url"],NxosCall.NxosConfig(shutLo1),switch["user"],switch["password"])["ins_api"]["outputs"]["output"]
-        NxosCall.NxosResult(setLo1status)
-        setLo1status = NxosCall.NxosAPI(switch["url"],NxosCall.NxosConfig(noShutLo1),switch["user"],switch["password"])["ins_api"]["outputs"]["output"]
-        NxosCall.NxosResult(setLo1status)
 
     print("VXLAN Configured on switch " + switch["hostname"] + ".")

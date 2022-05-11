@@ -1,5 +1,6 @@
 import NxosCall
 import numpy as np
+import VpcCheck
 
 # ******************************************************
 # **                                                  **
@@ -35,8 +36,11 @@ def getFeatureList(url,user,password):
     print("Currently Enabled Features:")
     for each in featureList:
         if each["cfcFeatureCtrlOpStatus2"][:2] == "en" and each["cfcFeatureCtrlInstanceNum2"] <= 1:
-            enFeatures.append(each["cfcFeatureCtrlName2"])
-            print(each["cfcFeatureCtrlName2"])
+            if each["cfcFeatureCtrlName2"] == "vpc":
+                VpcCheck.getVpc(url,user,password)
+            else:    
+                enFeatures.append(each["cfcFeatureCtrlName2"])
+                print(each["cfcFeatureCtrlName2"])
     
     return enFeatures
 

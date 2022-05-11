@@ -6,6 +6,7 @@ NexusFeatures.py
 CreateUnderlay.py
 CreateBGPoverlay.py
 CreateMultiCast.py
+VpcCheck.py
 
 A breif description of each script is below.
 
@@ -26,6 +27,10 @@ Prior to running the script, the Nexus switches need to have some initial config
 - Interswitch links must be enabled
 - The nxapi feature must be enabled on each switch
 - It is recommended to enable LLDP prior to running the script.  The script will enable it, but it may pull LLDP info before it's available.  Enabling the feature before running the script resolves the issue.
+
+IMPORTANT INFORMATION ABOUT VPC
+This script is not written to deploy vPC on a VXLAN environment for Nexus Switches.  If you wish to run vPC in your setup, it is recommended to run this script first, then configure vPC.
+If the vPC feature is active on the switch, you will need to do a 'shut' - 'no shut' on the loopback1 interface of each leaf switch with the vPC feature active.
 
 All files including the config file must be in the same directory folder.
 
@@ -165,3 +170,7 @@ CreateBGPoverlay.py
 
 CreateMultiCast.py
     This script will deploy PIM sparse-mode to the switches and set up the spine switches as the Anycast-RP devices.
+
+VpcCheck.py
+    This script is called by DeployVXLAN if it detects 'feature vpc' on the target switch.  When called, it will check to see if there is any VPC configuration and if there isn't any, it will disable the vPC feature.
+    If VPC is enabled and not properly configured for VXLAN, the loopback interface tied to the nve interface will not function unless you do a shut --> no shut on the loopback interface.
